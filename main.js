@@ -17,6 +17,7 @@ const img = document.querySelector('img.slider');
 const h1 = document.querySelector('h1.slider');
 const dots = [...document.querySelectorAll('.dots span')]
 
+let time = 2000;
 let active = 0;
 
 const changeDot = () => {
@@ -33,6 +34,7 @@ const changeSlide = () => {
     changeDot();
 }
 
+// change slide with key
 const keyChangeSlide = (e) => {
     if (e.keyCode === 37){
         active--;
@@ -45,10 +47,23 @@ const keyChangeSlide = (e) => {
     h1.textContent = sliders[active].txt;    
     changeDot();
     clearInterval(slideInterval);
-    slideInterval = setInterval(changeSlide, 2000);
+    slideInterval = setInterval(changeSlide, time);
 }
 
+// change slide with dots 
+dots.forEach((dot)=>{
+    dot.addEventListener('click', (chooseDot)=>{
+        dots.forEach((dot)=>{dot.classList.remove('active')})
+        dot.classList.add('active');
+        const act = dots.findIndex((dot)=>dot.classList.contains('active'));
+        img.src = sliders[act].image;
+        h1.textContent = sliders[act].txt; 
+        active = act;
+        clearInterval(slideInterval);
+        slideInterval = setInterval(changeSlide, time);
+    })
+})
 
-let slideInterval = setInterval(changeSlide, 2000);
+let slideInterval = setInterval(changeSlide, time);
 
 window.addEventListener('keydown', keyChangeSlide)
