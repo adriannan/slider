@@ -33,6 +33,22 @@ const changeSlide = () => {
     changeDot();
 }
 
+const keyChangeSlide = (e) => {
+    if (e.keyCode === 37){
+        active--;
+        if(active === -1) active = 2;
+    } else if (e.keyCode === 39){
+        active++;
+        if(active === 3) active = 0;
+    }
+    img.src = sliders[active].image;
+    h1.textContent = sliders[active].txt;    
+    changeDot();
+    clearInterval(slideInterval);
+    slideInterval = setInterval(changeSlide, 2000);
+}
 
 
-setInterval(changeSlide, 2000)
+let slideInterval = setInterval(changeSlide, 2000);
+
+window.addEventListener('keydown', keyChangeSlide)
