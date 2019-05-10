@@ -26,11 +26,19 @@ const changeDot = () => {
    dots[active].classList.add('active')
 }
 
+const setSlide = (setAct) => {
+    img.src = sliders[setAct].image;
+    h1.textContent = sliders[setAct].txt;
+}
+const resetInterval = () => {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(changeSlide, time);
+}
+
 const changeSlide = () => {
     active++;
     if (active === sliders.length) active = 0
-    img.src = sliders[active].image;
-    h1.textContent = sliders[active].txt;
+    setSlide(active)
     changeDot();
 }
 
@@ -43,11 +51,9 @@ const keyChangeSlide = (e) => {
         active++;
         if(active === 3) active = 0;
     }
-    img.src = sliders[active].image;
-    h1.textContent = sliders[active].txt;    
+    setSlide(active)
     changeDot();
-    clearInterval(slideInterval);
-    slideInterval = setInterval(changeSlide, time);
+    resetInterval();
 }
 
 // change slide with dots 
@@ -56,11 +62,9 @@ dots.forEach((dot)=>{
         dots.forEach((dot)=>{dot.classList.remove('active')})
         dot.classList.add('active');
         const act = dots.findIndex((dot)=>dot.classList.contains('active'));
-        img.src = sliders[act].image;
-        h1.textContent = sliders[act].txt; 
         active = act;
-        clearInterval(slideInterval);
-        slideInterval = setInterval(changeSlide, time);
+        setSlide(act)
+        resetInterval();
     })
 })
 
