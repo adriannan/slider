@@ -1,4 +1,4 @@
-// alert('ok')
+alert('ok')
 
 const sliders = [{
         image: "imgs/img1.jpg",
@@ -46,10 +46,10 @@ const changeSlide = () => {
 const keyChangeSlide = (e) => {
     if (e.keyCode === 37){
         active--;
-        if(active === -1) active = 2;
+        if(active === -1) active = sliders.length-1;
     } else if (e.keyCode === 39){
         active++;
-        if(active === 3) active = 0;
+        if(active === sliders.length) active = 0;
     }
     setSlide(active)
     changeDot();
